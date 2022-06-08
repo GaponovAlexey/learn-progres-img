@@ -23,6 +23,9 @@ const Home: NextPage = () => {
 
 const MyImage = ({ src, placeholderSrc, width = '100%', ...props }: any) => {
   const [ImageSrc, setImageSrc] = useState(placeholderSrc)
+  const style = `progresive ${
+    ImageSrc === placeholderSrc ? 'loading' : 'loaded'
+  }`
   useEffect(() => {
     const image = new Image()
     image.src = src
@@ -32,7 +35,13 @@ const MyImage = ({ src, placeholderSrc, width = '100%', ...props }: any) => {
   }, [src])
   return (
     <div>
-      <img src={ImageSrc} alt='alt' height={'100%'} width='100%' />
+      <img
+        className={style}
+        src={ImageSrc}
+        alt='alt'
+        height={'100%'}
+        width='100%'
+      />
     </div>
   )
 }
