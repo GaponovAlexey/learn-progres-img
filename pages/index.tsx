@@ -1,7 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
+const M = '/ca.jpg'
+const Mcm = '/ca-min.jpg'
 
 const Home: NextPage = () => {
   return (
@@ -13,8 +15,24 @@ const Home: NextPage = () => {
       </Head>
 
       <div>
-        <Image src='/vercel.svg' alt='logo' width={200} height={200} />
+        <MyImage src={M} placeholderSrc={Mcm} />
       </div>
+    </div>
+  )
+}
+
+const MyImage = ({ src, placeholderSrc, width = '100%', ...props }: any) => {
+  const [ImageSrc, setImageSrc] = useState(placeholderSrc)
+  useEffect(() => {
+    const image = new Image()
+    image.src = src
+    image.onload = () => {
+      setImageSrc(src)
+    }
+  }, [src])
+  return (
+    <div>
+      <img src={ImageSrc} alt='alt' height={'100%'} width='100%' />
     </div>
   )
 }
